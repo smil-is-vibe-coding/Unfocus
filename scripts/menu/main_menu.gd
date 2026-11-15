@@ -76,7 +76,7 @@ func _build_ui() -> void:
 	var layer := CanvasLayer.new()
 	add_child(layer)
 
-	_title = NeonStyle.label("NEON VOID", 72, NeonStyle.MAGENTA)
+	_title = NeonStyle.label("UNFOCUS", 72, NeonStyle.MAGENTA)
 	_title.position = Vector2(80, 50)
 	layer.add_child(_title)
 	_subtitle = NeonStyle.label("", 20, NeonStyle.CYAN)

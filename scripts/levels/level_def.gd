@@ -2,8 +2,8 @@ class_name LevelDef
 extends Resource
 ## One race level: track layout + its whole visual "vibe".
 
-@export var id := "neon_void"
-@export var display_name := "NEON VOID"
+@export var id := "autodromo"
+@export var display_name := "CIRCUIT"
 @export var subtitle := ""
 @export_range(1, 5) var difficulty := 1
 @export var ui_color := Color(1.0, 0.2, 0.85)

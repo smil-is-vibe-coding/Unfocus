@@ -1,4 +1,4 @@
-# NEON VOID — Hover Combat Racing
+# UNFOCUS — Hover Combat Racing
 
 **Neon anti-gravity jets, floating circuits in a pitch-black void, and a full arsenal of combat abilities.**
 Made with [Godot 4.7](https://godotengine.org) · runs on desktop and **in your browser**.
@@ -11,7 +11,7 @@ Made with [Godot 4.7](https://godotengine.org) · runs on desktop and **in your 
 
 ## What is it?
 
-NEON VOID is an arcade combat racer in the spirit of classic Blur-style racers and anti-gravity racing games:
+UNFOCUS is an arcade combat racer in the spirit of classic Blur-style racers and anti-gravity racing games:
 hover jets race around neon circuits floating in deep space, under drifting aurora curtains.
 Leave the road and you fall into the void — unless your energy shield catches you.
 
@@ -46,6 +46,9 @@ Leave the road and you fall into the void — unless your energy shield catches 
 <p>
   <img src="docs/screenshots/04_cinematic_intro.png" width="49%" alt="Cinematic intro" />
   <img src="docs/screenshots/08_negative_world.png" width="49%" alt="Harbour Negative" />
+</p>
+<p>
+  <img src="docs/screenshots/01_main_menu.png" width="98%" alt="Main menu" />
 </p>
 <p>
   <img src="docs/screenshots/02_circuit_select.png" width="49%" alt="Circuit select" />
