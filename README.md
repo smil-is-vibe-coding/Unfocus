@@ -72,10 +72,31 @@ Leave the road and you fall into the void — unless your energy shield catches 
 
 **Tip:** tap the throttle exactly on **GO** for a perfect launch boost. Holding it during the countdown floods the engine.
 
+## Download (desktop, best performance)
+
+The desktop builds use Godot's full **Forward+** renderer and run much faster and prettier than the browser version.
+
+| Platform | File | Notes |
+|---|---|---|
+| **Windows** (64-bit) | `Unfocus.exe` | Single self-contained file. On dual-GPU laptops it requests the dedicated NVIDIA/AMD GPU automatically. Windows SmartScreen may warn because it isn't code-signed: click **More info → Run anyway**. |
+| **macOS** (Intel + Apple Silicon) | `Unfocus.zip` → `Unfocus.app` | Not notarized by Apple. On first launch, **right-click → Open**, or run `xattr -cr Unfocus.app` in Terminal. |
+
+Grab them from the repository's **[Releases](https://github.com/smil-is-vibe-coding/Unfocus/releases)** page.
+
 ## Run it locally
 
 1. Install **Godot 4.7.2** (standard build).
 2. Open `project.godot` and press **F5**.
+
+## Build desktop versions
+
+```powershell
+# Windows .exe  -> build/windows/Unfocus.exe
+Godot_v4.7.2-stable_win64_console.exe --headless --path . --export-release "Windows Desktop" build/windows/Unfocus.exe
+# macOS universal app (can be built from Windows) -> build/macos/Unfocus.zip
+Godot_v4.7.2-stable_win64_console.exe --headless --path . --export-release "macOS" build/macos/Unfocus.zip
+```
+(Needs the Godot 4.7.2 export templates. The macOS build is ad-hoc signed; notarization requires an Apple Developer account.)
 
 ## Build for the web
 
