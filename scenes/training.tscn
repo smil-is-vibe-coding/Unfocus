@@ -1,0 +1,72 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/training_manager.gd" id="1_race"]
+[ext_resource type="Script" path="res://scripts/track/race_track.gd" id="6_track"]
+[ext_resource type="Environment" path="res://resources/space_env.tres" id="2_env"]
+[ext_resource type="Script" path="res://scripts/chase_camera.gd" id="4_cam"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="5_hud"]
+[ext_resource type="Script" path="res://scripts/track/space_decor.gd" id="7_decor"]
+
+[sub_resource type="ParticleProcessMaterial" id="Dust_process"]
+emission_shape = 3
+emission_box_extents = Vector3(70, 35, 70)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 0.2
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.8
+color = Color(0.4, 0.9, 1, 1)
+hue_variation_min = -0.5
+hue_variation_max = 0.5
+
+[sub_resource type="StandardMaterial3D" id="Dust_mat"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="Dust_mesh"]
+material = SubResource("Dust_mat")
+size = Vector2(0.14, 0.14)
+
+[node name="Training" type="Node3D"]
+script = ExtResource("1_race")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_env")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 20, 0)
+light_color = Color(0.55, 0.45, 1, 1)
+light_energy = 0.35
+
+[node name="Track" type="Node3D" parent="."]
+script = ExtResource("6_track")
+control_points = PackedVector3Array(0, 0, 160, 0, 0, -160, 30, 0, -245, 110, 0, -280, 190, 0, -245, 220, 0, -160, 220, 0, 160, 190, 0, 245, 110, 0, 280, 30, 0, 245)
+width = 30.0
+pickup_row_spacing = 140.0
+
+[node name="Decor" type="Node3D" parent="."]
+script = ExtResource("7_decor")
+
+[node name="ChaseCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 7)
+current = true
+fov = 70.0
+far = 4000.0
+script = ExtResource("4_cam")
+
+[node name="SpaceDust" type="GPUParticles3D" parent="ChaseCamera"]
+amount = 1500
+lifetime = 5.0
+preprocess = 5.0
+visibility_aabb = AABB(-80, -40, -80, 160, 80, 160)
+process_material = SubResource("Dust_process")
+draw_pass_1 = SubResource("Dust_mesh")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_hud")
