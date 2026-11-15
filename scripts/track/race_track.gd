@@ -397,7 +397,6 @@ func _build_gates() -> void:
 	torus.outer_radius = width * 0.62 + 0.9
 	torus.rings = 48
 	torus.ring_segments = 8
-	torus.material = mat
 
 	var gate_count := int(length / gate_spacing)
 	for i in gate_count:
@@ -409,7 +408,7 @@ func _build_gates() -> void:
 		gate.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		# Torus axis is Y: tip it so the ring faces along the track.
 		gate.transform = Transform3D(t.basis * Basis(Vector3.RIGHT, PI / 2.0), t.origin)
-		gate.set_instance_shader_parameter("tint", _gate_color(i))
+		gate.material_override = NeonGlow.mat(_gate_color(i), 0.0, 0.0, 0.0, 1.2, 4.0)
 		add_child(gate)
 		_built.append(gate)
 		var game := get_node_or_null("/root/Game") if not Engine.is_editor_hint() else null

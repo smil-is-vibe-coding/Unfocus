@@ -1,14 +1,15 @@
 shader_type spatial;
 // Hologram-style object: black body, glowing fresnel rim + optional wire edges.
-// Per-object colour and look via instance uniforms (one shared material).
+// Colour/look are regular material uniforms (instance uniforms aren't supported
+// by the web/Compatibility renderer). Use NeonGlow.mat() to get cached materials.
 render_mode unshaded, cull_back;
 
 #include "res://shaders/neon_common.gdshaderinc"
 
-instance uniform vec3 tint : source_color = vec3(0.0, 1.0, 1.0);
-instance uniform float wire = 0.0;          // 1 = draw BoxMesh face edges
-instance uniform float hue_cycle = 0.0;     // >0 = animate the hue
-instance uniform float pulse_phase = 0.0;
+uniform vec3 tint : source_color = vec3(0.0, 1.0, 1.0);
+uniform float wire = 0.0;          // 1 = draw BoxMesh face edges
+uniform float hue_cycle = 0.0;     // >0 = animate the hue
+uniform float pulse_phase = 0.0;
 uniform float rim_power = 2.2;
 uniform float rim_strength = 3.0;
 

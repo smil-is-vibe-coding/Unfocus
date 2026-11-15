@@ -64,6 +64,15 @@ func _set_bus(bus: String, v: float, offset := 0.0) -> void:
 ## Pick a preset from what we know about the device. Sets quality + quality_reason.
 func detect_quality() -> void:
 	var gpu := RenderingServer.get_video_adapter_name()
+	if OS.has_feature("web"):
+		# Godot only sees "WebKit WebGL" in the browser; ask WebGL for the real GPU.
+		var real = JavaScriptBridge.eval("""(() => { try {
+			const gl = document.createElement('canvas').getContext('webgl2');
+			const ext = gl && gl.getExtension('WEBGL_debug_renderer_info');
+			return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : '';
+		} catch (e) { return ''; } })()""", true)
+		if typeof(real) == TYPE_STRING and real != "":
+			gpu = real
 	var low_gpu := false
 	for k in ["Mali", "Adreno", "PowerVR", "Apple", "SwiftShader", "llvmpipe", "Microsoft Basic", "Software"]:
 		if gpu.containsn(k):
@@ -73,13 +82,20 @@ func detect_quality() -> void:
 		if gpu.containsn(k):
 			integrated = true
 	var web := OS.has_feature("web")
+	# Browsers report the real GPU through WebGL (e.g. "ANGLE (NVIDIA, GeForce RTX ...)").
+	var dedicated := false
+	for k in ["NVIDIA", "GeForce", "RTX", "GTX", "Radeon RX", "Radeon Pro", "Arc A"]:
+		if gpu.containsn(k):
+			dedicated = true
 	var mobile := OS.has_feature("mobile") or OS.has_feature("web_android") or OS.has_feature("web_ios") 		or (web and DisplayServer.is_touchscreen_available())
 	var where := "web browser" if web else OS.get_name()
 	var gpu_short := gpu.get_slice("(", 0).strip_edges() if gpu != "" else "unknown GPU"
+	if gpu.begins_with("ANGLE"):
+		gpu_short = gpu.get_slice(",", 1).get_slice("(0x", 0).get_slice(" Direct3D", 0).strip_edges()
 	if mobile or low_gpu or OS.get_processor_count() <= 2:
 		quality = Quality.LOW
 		quality_reason = "%s · %s" % ["mobile device" if mobile else where, gpu_short]
-	elif web or integrated:
+	elif integrated or (web and not dedicated):
 		quality = Quality.MEDIUM
 		quality_reason = "%s · %s" % [where, gpu_short]
 	else:
@@ -118,6 +134,12 @@ func apply_graphics(scene: Node) -> void:
 			env = env.duplicate(true)   # Never edit the shared .tres on disk.
 			we.environment = env
 		env.glow_enabled = quality != Quality.LOW
+		if OS.has_feature("web"):
+			# WebGL often clamps colours at 1.0, so the desktop threshold (1.1)
+			# would never trigger bloom. Catch the bright neon a bit earlier.
+			env.glow_hdr_threshold = 0.82
+			env.glow_intensity = 0.75
+			env.glow_bloom = 0.03
 		env.fog_enabled = quality == Quality.HIGH
 		env.reflected_light_source = Environment.REFLECTION_SOURCE_SKY if quality == Quality.HIGH else Environment.REFLECTION_SOURCE_DISABLED
 		if env.sky:

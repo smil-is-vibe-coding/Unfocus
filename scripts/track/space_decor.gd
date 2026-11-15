@@ -51,18 +51,14 @@ func _ready() -> void:
 		var mi := MeshInstance3D.new()
 		var pick := rng.randi() % meshes.size()
 		mi.mesh = meshes[pick]
-		mi.material_override = mat
 		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		var dist := pos.distance_to(centre)
 		mi.scale = Vector3.ONE * rng.randf_range(4.0, 14.0) * (1.0 + dist / 600.0)
 		mi.position = pos
 		mi.rotation = Vector3(rng.randf() * TAU, rng.randf() * TAU, rng.randf() * TAU)
 		add_child(mi)
-		mi.set_instance_shader_parameter("tint", palette[rng.randi() % palette.size()])
-		mi.set_instance_shader_parameter("wire", 1.0 if pick == 0 else 0.0)
-		mi.set_instance_shader_parameter("pulse_phase", rng.randf())
-		if rng.randf() < 0.25:
-			mi.set_instance_shader_parameter("hue_cycle", rng.randf_range(0.5, 2.0))
+		var cycle := snappedf(rng.randf_range(0.5, 2.0), 0.5) if rng.randf() < 0.25 else 0.0
+		mi.material_override = NeonGlow.mat(palette[rng.randi() % palette.size()], 1.0 if pick == 0 else 0.0, cycle, rng.randf())
 		_spinners.append(mi)
 		_spin_axes.append(Vector3(rng.randf_range(-1, 1), rng.randf_range(-1, 1), rng.randf_range(-1, 1)).normalized())
 		_spin_speeds.append(rng.randf_range(0.05, 0.4))
@@ -119,10 +115,9 @@ func _build_planet(pos: Vector3, radius: float, color: Color, mat: Material) -> 
 	sphere.radial_segments = 64
 	sphere.rings = 32
 	planet.mesh = sphere
-	planet.material_override = mat
+	planet.material_override = NeonGlow.mat(color)
 	planet.position = pos
 	add_child(planet)
-	planet.set_instance_shader_parameter("tint", color)
 
 	var ring := MeshInstance3D.new()
 	var torus := TorusMesh.new()
@@ -130,13 +125,11 @@ func _build_planet(pos: Vector3, radius: float, color: Color, mat: Material) -> 
 	torus.outer_radius = radius * 2.1
 	torus.rings = 96
 	ring.mesh = torus
-	ring.material_override = mat
+	ring.material_override = NeonGlow.mat(color.lerp(Color(1, 0.4, 0.8), 0.5), 0.0, 0.3)
 	ring.position = pos
 	ring.scale = Vector3(1, 0.015, 1)
 	ring.rotation = Vector3(deg_to_rad(18), 0, deg_to_rad(-12))
 	add_child(ring)
-	ring.set_instance_shader_parameter("tint", color.lerp(Color(1, 0.4, 0.8), 0.5))
-	ring.set_instance_shader_parameter("hue_cycle", 0.3)
 	_spinners.append(ring)
 	_spin_axes.append(Vector3.UP)
 	_spin_speeds.append(0.02)

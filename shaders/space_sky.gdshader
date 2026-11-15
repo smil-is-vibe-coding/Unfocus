@@ -103,7 +103,7 @@ vec3 aurora(vec3 dir, vec3 c_low, vec3 c_mid, vec3 c_high, float seed) {
 		float ridge = 1.0 - abs(n * 2.0 - 1.0);
 		float curtain = pow(ridge, 10.0);
 		vec3 c = fi < 0.5 ? mix(c_low, c_mid, fi * 2.0) : mix(c_mid, c_high, (fi - 0.5) * 2.0);
-		col += c * curtain * (1.0 - fi) * 0.32 * 14.0 / float(aurora_layers);
+		col += c * curtain * (1.0 - fi) * 0.32 * sqrt(14.0 / float(aurora_layers));
 	}
 	// Fade near the horizon: the projection gets huge there and aliases.
 	float horizon = smoothstep(0.06, 0.35, dir.y) * smoothstep(1.0, 0.6, dir.y);

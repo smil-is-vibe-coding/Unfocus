@@ -59,7 +59,7 @@ func _show(i: int) -> void:
 	_pivot.add_child(_preview)
 	_preview.scale = Vector3.ONE * 0.7
 	create_tween().tween_property(_preview, "scale", Vector3.ONE, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	_ring.set_instance_shader_parameter("tint", spec.color)
+	_ring.material_override = NeonGlow.mat(spec.color, 0.0, 0.0, 0.0, 1.0, 3.0)
 	_spot.light_color = spec.color
 
 	_name.text = spec.display_name
@@ -184,7 +184,7 @@ func _build_stage() -> void:
 	torus.outer_radius = 3.55
 	torus.rings = 64
 	_ring.mesh = torus
-	_ring.material_override = mat
+	_ring.material_override = NeonGlow.mat(NeonStyle.CYAN, 0.0, 0.0, 0.0, 1.0, 3.0)
 	_ring.position = Vector3(-0.8, -1.2, 0)
 	add_child(_ring)
 	_spot = OmniLight3D.new()

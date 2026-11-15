@@ -84,9 +84,9 @@ func _build_ui() -> void:
 	layer.add_child(_subtitle)
 	layer.add_child(NeonStyle.footer())
 
-	var fs := NeonStyle.button("⛶  FULLSCREEN", NeonStyle.CYAN, Vector2(210, 44), 16)
+	var fs := NeonStyle.button("FULLSCREEN  [F11]", NeonStyle.CYAN, Vector2(230, 44), 16)
 	fs.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	fs.offset_left = -270
+	fs.offset_left = -290
 	fs.offset_right = -60
 	fs.offset_top = 56
 	fs.offset_bottom = 100
@@ -325,7 +325,6 @@ func _build_stage() -> void:
 		torus.outer_radius = 5.2 + k * 3.0
 		torus.rings = 64
 		ring.mesh = torus
-		ring.material_override = mat
+		ring.material_override = NeonGlow.mat([NeonStyle.CYAN, NeonStyle.MAGENTA][k % 2])
 		ring.position = Vector3(4.2, -1.5 - k * 0.6, -k * 4.0)
 		add_child(ring)
-		ring.set_instance_shader_parameter("tint", [NeonStyle.CYAN, NeonStyle.MAGENTA][k % 2])

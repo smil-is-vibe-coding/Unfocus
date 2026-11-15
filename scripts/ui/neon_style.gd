@@ -13,12 +13,10 @@ static var _font: Font
 
 
 static func font() -> Font:
+	# Bundled (not a system font) so the web build looks identical to desktop:
+	# Barlow Semi Condensed Bold + Noto Sans Math fallback for arrows/shapes.
 	if _font == null:
-		var f := SystemFont.new()
-		f.font_names = PackedStringArray(["Orbitron", "Bahnschrift", "Eurostile", "Segoe UI", "Arial"])
-		f.font_weight = 700
-		f.antialiasing = TextServer.FONT_ANTIALIASING_GRAY
-		_font = f
+		_font = load("res://resources/ui_font.tres")
 	return _font
 
 
