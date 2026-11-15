@@ -1,11 +1,41 @@
-# UNFOCUS — Hover Combat Racing
+<div align="center">
 
-**Neon anti-gravity jets, floating circuits in a pitch-black void, and a full arsenal of combat abilities.**
-Made with [Godot 4.7](https://godotengine.org) · runs on desktop and **in your browser**.
+# UNFOCUS
 
-### ▶ [Play in your browser](https://smil-is-vibe-coding.github.io/Unfocus/)
+### Neon hover combat racing
+
+**Anti-gravity jets, floating circuits in a pitch-black void, and a full arsenal of combat abilities.**
+
+[![Download for Windows](https://img.shields.io/badge/Download-Windows%20.exe-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest/download/Unfocus.exe)
+[![Download for macOS](https://img.shields.io/badge/Download-macOS%20.app-111111?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest/download/Unfocus.zip)
+
+[![Latest release](https://img.shields.io/github/v/release/smil-is-vibe-coding/Unfocus?style=flat-square&color=ff3cc8)](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/smil-is-vibe-coding/Unfocus/total?style=flat-square&color=00e5ff)](https://github.com/smil-is-vibe-coding/Unfocus/releases)
+[![Made with Godot](https://img.shields.io/badge/Made%20with-Godot%204.7-478CBF?style=flat-square&logo=godotengine&logoColor=white)](https://godotengine.org)
+[![Browser version](https://img.shields.io/badge/browser%20version-work%20in%20progress-orange?style=flat-square)](#-browser-version-work-in-progress)
+
+</div>
 
 ![Racing on Autodromo Neon](docs/screenshots/05_racing.png)
+
+---
+
+## ⬇️ Download and play
+
+| Platform | Download | How to start |
+|---|---|---|
+| **Windows** 10/11 (64-bit) | **[Unfocus.exe](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest/download/Unfocus.exe)** (118 MB) | Double-click it. There's no installer. If Windows says *"Windows protected your PC"*, click **More info → Run anyway** (the game isn't code-signed). |
+| **macOS** (Intel + Apple Silicon) | **[Unfocus.zip](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest/download/Unfocus.zip)** (69 MB) | Unzip it, then **right-click `Unfocus.app` → Open → Open** the first time (it isn't notarized by Apple). After that, open it normally. |
+
+All builds are on the **[Releases page](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest)**.
+The desktop versions use Godot's full Forward+ renderer: best graphics and highest FPS. On dual-GPU laptops the Windows build uses the dedicated NVIDIA/AMD GPU automatically.
+
+## 🚧 Browser version (work in progress)
+
+There is an experimental browser build at **[smil-is-vibe-coding.github.io/Unfocus](https://smil-is-vibe-coding.github.io/Unfocus/)**, but it **isn't ready yet**.
+It runs on WebGL through Godot's Compatibility renderer, so expect **lower FPS, simpler visuals and occasional stutter**, especially on laptops with integrated graphics and on phones.
+Making it run properly needs heavy changes: baking the sky, cheaper bloom, pooled effects and merged scenery, or moving the web client to a web-native engine with WebGPU.
+**For now, please play the desktop version.**
 
 ---
 
@@ -72,17 +102,6 @@ Leave the road and you fall into the void — unless your energy shield catches 
 
 **Tip:** tap the throttle exactly on **GO** for a perfect launch boost. Holding it during the countdown floods the engine.
 
-## Download (desktop, best performance)
-
-The desktop builds use Godot's full **Forward+** renderer and run much faster and prettier than the browser version.
-
-| Platform | File | Notes |
-|---|---|---|
-| **Windows** (64-bit) | `Unfocus.exe` | Single self-contained file. On dual-GPU laptops it requests the dedicated NVIDIA/AMD GPU automatically. Windows SmartScreen may warn because it isn't code-signed: click **More info → Run anyway**. |
-| **macOS** (Intel + Apple Silicon) | `Unfocus.zip` → `Unfocus.app` | Not notarized by Apple. On first launch, **right-click → Open**, or run `xattr -cr Unfocus.app` in Terminal. |
-
-Grab them from the repository's **[Releases](https://github.com/smil-is-vibe-coding/Unfocus/releases)** page.
-
 ## Run it locally
 
 1. Install **Godot 4.7.2** (standard build).
@@ -98,7 +117,7 @@ Godot_v4.7.2-stable_win64_console.exe --headless --path . --export-release "macO
 ```
 (Needs the Godot 4.7.2 export templates. The macOS build is ad-hoc signed; notarization requires an Apple Developer account.)
 
-## Build for the web
+## Build for the web (experimental)
 
 The project includes a **Web** export preset (no-threads build, so it works on any static host such as GitHub Pages or itch.io).
 
@@ -129,6 +148,7 @@ tools/             generate_audio.py, circuit_designer.py, export_web.ps1
 
 ## Roadmap
 
+- [ ] **Production-ready browser version**: big performance and visual work (baked sky, cheaper bloom, pooled effects), possibly a web-native WebGPU client
 - [ ] **Multiplayer**: online races and battles
 - [ ] **More circuits**, including new real-world-inspired layouts and fantasy tracks
 - [ ] **More jets**, with new classes and perks
