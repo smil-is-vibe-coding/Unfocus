@@ -21,6 +21,9 @@ if (-not (Test-Path $Godot)) {
 }
 
 New-Item -ItemType Directory -Force $out | Out-Null
+# Keep Godot from importing the build output as project assets.
+New-Item -ItemType File -Force (Join-Path $project "build\.gdignore") | Out-Null
+Get-ChildItem $out -Filter *.import -ErrorAction SilentlyContinue | Remove-Item -Force
 Write-Host "Exporting Web build to $out ..."
 & $Godot --headless --path $project --export-release "Web" (Join-Path $out "index.html")
 if ($LASTEXITCODE -ne 0) { Write-Error "Export failed (exit $LASTEXITCODE)." }
