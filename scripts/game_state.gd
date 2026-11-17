@@ -77,6 +77,11 @@ func detect_quality() -> void:
 	for k in ["Mali", "Adreno", "PowerVR", "Apple", "SwiftShader", "llvmpipe", "Microsoft Basic", "Software"]:
 		if gpu.containsn(k):
 			low_gpu = true
+	# Native macOS on Apple Silicon (Metal reports e.g. "Apple M4 (Apple9)") runs
+	# the full HIGH preset comfortably; "Apple" only means a weak GPU on iPhone/iPad
+	# and in the browser. The AUTO fps safety net still steps down if needed.
+	if OS.has_feature("macos") and not OS.has_feature("web") and gpu.containsn("Apple"):
+		low_gpu = false
 	var integrated := false
 	for k in ["Intel", "UHD", "Iris", "Radeon(TM) Graphics", "Radeon Graphics", "Vega"]:
 		if gpu.containsn(k):
@@ -197,9 +202,21 @@ func is_fullscreen() -> bool:
 	return m == DisplayServer.WINDOW_MODE_FULLSCREEN or m == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
 
 
+## The fullscreen shortcut as shown to the player. Mac keyboards send F11 to
+## "Show Desktop" (or volume), so macOS uses the system Ctrl+Cmd+F instead.
+func fullscreen_key() -> String:
+	return "CTRL+CMD+F" if OS.has_feature("macos") else "F11"
+
+
+func _is_fullscreen_key(k: InputEventKey) -> bool:
+	if k.physical_keycode == KEY_F11:
+		return true
+	return OS.has_feature("macos") and k.physical_keycode == KEY_F and k.meta_pressed and k.ctrl_pressed
+
+
 func _input(event: InputEvent) -> void:
 	var k := event as InputEventKey
-	if k and k.pressed and not k.echo and k.physical_keycode == KEY_F11:
+	if k and k.pressed and not k.echo and _is_fullscreen_key(k):
 		toggle_fullscreen()
 		get_viewport().set_input_as_handled()
 

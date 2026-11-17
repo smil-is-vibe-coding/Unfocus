@@ -32,6 +32,7 @@ func _ready() -> void:
 	cam = Camera3D.new()
 	cam.far = 4000.0
 	cam.fov = 55.0
+	cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # Driven per frame.
 	add_child(cam)
 
 

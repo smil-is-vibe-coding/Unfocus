@@ -84,8 +84,9 @@ func _build_ui() -> void:
 	layer.add_child(_subtitle)
 	layer.add_child(NeonStyle.footer())
 
-	var fs := NeonStyle.button("FULLSCREEN  [F11]", NeonStyle.CYAN, Vector2(230, 44), 16)
+	var fs := NeonStyle.button("FULLSCREEN  [%s]" % Game.fullscreen_key(), NeonStyle.CYAN, Vector2(230, 44), 16)
 	fs.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	fs.grow_horizontal = Control.GROW_DIRECTION_BEGIN   # Longer key text grows leftwards.
 	fs.offset_left = -290
 	fs.offset_right = -60
 	fs.offset_top = 56
