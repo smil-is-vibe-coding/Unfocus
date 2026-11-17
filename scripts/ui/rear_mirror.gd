@@ -29,6 +29,8 @@ func _ready() -> void:
 	_cam.fov = 62.0
 	_cam.far = 1500.0
 	_cam.current = true
+	# Moved in _process to follow the interpolated jet; no physics interpolation.
+	_cam.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	_viewport.add_child(_cam)
 
 	# Rounded mask: this control draws the shape, its children are clipped to it.

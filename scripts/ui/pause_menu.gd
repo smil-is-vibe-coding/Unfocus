@@ -13,7 +13,7 @@ const CONTROLS := [
 	["C", "Look back"],
 	["R", "Reset onto the track"],
 	["ESC", "Pause"],
-	["F11", "Fullscreen"],
+	["F11", "Fullscreen"],   # Key text comes from Game.fullscreen_key().
 ]
 
 var _root: Control
@@ -68,7 +68,8 @@ func _ready() -> void:
 	v.add_child(grid)
 	panel.add_child(v)
 	for row in CONTROLS:
-		grid.add_child(NeonStyle.label(row[0], 17, Color.WHITE))
+		var key: String = Game.fullscreen_key() if row[1] == "Fullscreen" else row[0]
+		grid.add_child(NeonStyle.label(key, 17, Color.WHITE))
 		grid.add_child(NeonStyle.label(row[1], 17, Color(0.75, 0.82, 1.0)))
 
 

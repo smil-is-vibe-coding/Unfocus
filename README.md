@@ -25,10 +25,11 @@
 | Platform | Download | How to start |
 |---|---|---|
 | **Windows** 10/11 (64-bit) | **[Unfocus.exe](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest/download/Unfocus.exe)** (118 MB) | Double-click it. There's no installer. If Windows says *"Windows protected your PC"*, click **More info → Run anyway** (the game isn't code-signed). |
-| **macOS** (Intel + Apple Silicon) | **[Unfocus.zip](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest/download/Unfocus.zip)** (69 MB) | Unzip it, then **right-click `Unfocus.app` → Open → Open** the first time (it isn't notarized by Apple). After that, open it normally. |
+| **macOS** (Intel + Apple Silicon) | **[Unfocus.zip](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest/download/Unfocus.zip)** (69 MB) | Unzip it and double-click `Unfocus.app`. The first time, macOS blocks it because it isn't notarized by Apple: click **Done**, open **System Settings → Privacy & Security**, scroll down and click **Open Anyway**, then confirm. After that, open it normally. (On macOS 14 or older, **right-click → Open → Open** also works.) |
 
 All builds are on the **[Releases page](https://github.com/smil-is-vibe-coding/Unfocus/releases/latest)**.
 The desktop versions use Godot's full Forward+ renderer: best graphics and highest FPS. On dual-GPU laptops the Windows build uses the dedicated NVIDIA/AMD GPU automatically.
+On Apple Silicon Macs the game picks the HIGH preset automatically (Metal).
 
 ## 🚧 Browser version (work in progress)
 
@@ -98,7 +99,7 @@ Leave the road and you fall into the void — unless your energy shield catches 
 | Look back | C | Right-stick click | ◎ |
 | Reset onto the track | R | Y | — |
 | Pause | Esc | B | II |
-| Fullscreen | F11 | — | menu button |
+| Fullscreen | F11 (Mac: Ctrl+Cmd+F) | — | menu button |
 
 **Tip:** tap the throttle exactly on **GO** for a perfect launch boost. Holding it during the countdown floods the engine.
 
